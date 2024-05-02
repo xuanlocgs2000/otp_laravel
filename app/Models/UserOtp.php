@@ -17,17 +17,17 @@ class UserOtp extends Model
     ];
     public function sendSMS($receiverNumber)
     {
-        $message = ' OTP VERIFY IS' . $this->otp;
+        $message = ' OTP VERIFY IS:' . $this->otp;
         try {
-            $account_id = getenv("TWILIO_SID");
-            $auth_token = getenv("TWILIO_TOKEN");
-            $twilio_number = getenv("TWILIO_PHONE");
+            $account_id = getenv('TWILIO_SID');
+            $auth_token = getenv('TWILIO_TOKEN');
+            $twilio_number = getenv('TWILIO_FROM');
 
             $client = new Client($account_id, $auth_token);
             $client->messages->create(
                 $receiverNumber,
                 [
-                    'from' => $twilio_number,
+                    'from' =>  $twilio_number,
                     'body' => $message
                 ]
             );
